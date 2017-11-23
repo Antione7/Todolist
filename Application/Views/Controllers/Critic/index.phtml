@@ -1,0 +1,20 @@
+<div class="container">
+    <ul class="nav nav-tabs mb-3">
+        <?php foreach ($criterias as $criteria) : ?>
+            <li class="nav-item">
+                <a class="nav-link <?= $param2 === $criteria->id ? 'active' : '' ?>" href="<?= LINK_WEB ?>critic/index/<?= $param1 ?>/<?= $criteria->id ?>"><?= $criteria->name ?></a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php foreach ($critics as $critic) : ?>
+    <div class="card mb-3">
+        <div class="card-header">
+            <a href="<?=LINK_WEB ?>game/index/<?=$critic->id_users ?>" class="card-link"><?=$critic->pseudo ?></a>
+        </div>
+        <div class="card-block">
+            <h4 class="card-title">Rating: <?=$critic->rating ?>/5</h4>
+            <p class="card-text"><?=$critic->note ?></p>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>

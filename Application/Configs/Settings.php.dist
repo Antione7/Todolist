@@ -1,0 +1,34 @@
+<?php
+
+namespace Application\Configs;
+
+/**
+ * Copy this file and rename to Settings.php.
+ * Then put your settings in.
+ */
+class Settings {
+
+    private static $instance;
+
+    private function __construct(){
+        define('DS', DIRECTORY_SEPARATOR);
+        define('APP_ROOT', str_replace('Public/index.php', 'Application' . DS, $_SERVER['SCRIPT_FILENAME']));
+        define('LIB_ROOT', str_replace('Public/index.php', 'Library' . DS, $_SERVER['SCRIPT_FILENAME']));
+        define('LINK_WEB', str_replace('Public/index.php', '', 'http://localhost'.$_SERVER['SCRIPT_NAME']));
+        define('DATA_WEB', str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
+
+
+        define("DB_HOST", '');
+        define("DB_NAME", '');
+        define("DB_USER", '');
+        define("DB_PASS", '');
+        define("DB_CHAR", '');
+    }
+
+    public static function getInstance(){
+        if(is_null(self::$instance)){
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+}

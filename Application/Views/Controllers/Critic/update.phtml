@@ -1,0 +1,31 @@
+<div class="container">
+    <h1>Update critic</h1>
+    <hr />
+    <?php foreach ($errors as $e) : ?>
+        <div class="alert alert-danger">
+            <?= $e ?>
+        </div>
+    <?php endforeach; ?>
+    <div class="row">
+        <form method='post' class="col col-sm-6 offset-sm-3">
+            <?php 
+            $c = count($critics);
+            for($i = 0; $i < $c; $i++): ?>
+            <fieldset class="form-group">
+                <legend><?= ucfirst($critics[$i]->criteria) ?></legend>
+                <input type="hidden" name="criteria[]" value="<?=$critics[$i]->id_criterias ?>">
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <input value="<?= empty($_POST['rating'][$i]) ? $critics[$i]->rating : $helpers->foundInputValue('rating', null, $i) ?>" type="number" min="0" max="5" name="rating[]" class="form-control" id="rating"  placeholder="*/5" required>
+                </div>
+                <div class="form-group">
+                    <label for="note">Note</label>
+                    <textarea class="form-control" id="note" name="note[]" rows="5"><?= empty($_POST['note'][$i]) ? $critics[$i]->note : $helpers->foundInputValue('note', null, $i) ?></textarea>
+                </div>
+            </fieldset>
+            <?php endfor; ?>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+

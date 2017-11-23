@@ -1,0 +1,17 @@
+<div class="container">
+    <h1>Delete critic</h1>
+    <hr />
+    <?php foreach ($errors as $e) : ?>
+        <div class="alert alert-danger">
+            <?=$e?>
+        </div>
+    <?php endforeach; ?>
+    <form method='post'>
+        <p>
+            Confirm delete all critics for the game: <strong><?=$game->name?></strong>
+        </p>
+        <button type="submit" name="confirm" class="btn btn-danger mr-1">Yes</button>
+        <a href="<?= LINK_WEB ?>game/index/<?= $_SESSION['user']->id ?>">Cancel</a>
+    </form>
+</div>
+

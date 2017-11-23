@@ -1,0 +1,17 @@
+<div class="blog-post">
+    <h2 class="blog-post-title">Delete Article</h2>
+    <hr />
+    <?php foreach ($errors as $e) : ?>
+        <div class="alert alert-danger">
+            <?=$e?>
+        </div>
+    <?php endforeach; ?>
+    <form method='post'>
+        <p>
+            Confirm delete article: <strong>'<?=$element->title?>'</strong>, created at: <strong>'<?=date('F j, Y', strtotime($element->update))?>'</strong>
+        </p>
+        <button type="submit" name="confirm" class="btn btn-danger">Delete</button>
+        <a href="<?=LINK_WEB?>article/read/<?=$element->id?>" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+

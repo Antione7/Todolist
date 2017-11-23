@@ -1,0 +1,25 @@
+<div class="container"> 
+    <a class="btn btn-success" href='<?=LINK_WEB?>user/register'>Register</a>
+    <!--a class="btn btn-danger" href='<?=LINK_WEB?>article/delete/<?=$article->id?>'>Delete</a-->
+</div>
+<div class="container">
+    <h1>Login User</h1>
+    <hr />
+    <?php foreach ($errors as $e) : ?>
+        <div class="alert alert-danger">
+            <?=$e?>
+        </div>
+    <?php endforeach; ?>
+    <form method='post'>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input value="<?=$helpers->foundInputValue('email')?>" type="email" name="email" class="form-control" id="email"  placeholder="Enter the email">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name='password' id="password" placeholder="Enter the password" />
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a href="<?=LINK_WEB?>article" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

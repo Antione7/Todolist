@@ -1,0 +1,23 @@
+body{
+    padding-top: 5rem;
+}
+
+.nav-message{
+    display: block;
+    padding: 0.5em 1em;
+    color: #fff;
+}
+
+.nav-message.xs {
+    display: none;
+}
+
+@media screen and (max-width: 540px){
+    .nav-message.sm{
+        display: none;
+    }
+    
+    .nav-message.xs {
+        display: inline;
+    }
+}
