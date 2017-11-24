@@ -1,2 +1,2 @@
-# Gamenote
-Rating games over multiple criterias
+# Todolist
+Manage a list of tasks

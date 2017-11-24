@@ -2,6 +2,7 @@
 
 namespace Library\Core;
 
+use Library\Core\WebService;
 
 class Router {
 
@@ -31,8 +32,16 @@ class Router {
         return '\Application\Controllers\\' . ucfirst(strtolower($name));
     }
 
+    private static function getApiControllerName($name){
+        return '\Application\ApiControllers\\' . ucfirst(strtolower($name));
+    }
+
     private static function getControllerPath($name){
         return APP_ROOT . 'Controllers' . DS . ucfirst(strtolower($name)) . '.php';
+    }
+
+    private static function getApiControllerPath($name){
+        return APP_ROOT . 'ApiControllers' . DS . ucfirst(strtolower($name)) . '.php';
     }
 
     private static function getModuleName($name){
@@ -58,7 +67,6 @@ class Router {
         return true;
     }
 
-
     public static function dispatchModule($module=null, $action=null, Array $param=array()) {
 
         if(is_null($module) || is_null($action)){
@@ -83,40 +91,71 @@ class Router {
         }
     }
 
-
+    
     public static function dispatchPage($url){
         $url= str_replace("\\",DIRECTORY_SEPARATOR,$url);
         $url= str_replace("/",DIRECTORY_SEPARATOR,$url);
         $urlData    = explode(DS, $url);
         $controller = self::getControllerName('index');
         $action     = self::getActionName('index');
-
+        $isApi = false;
+        
         if(!empty($urlData[0])){
-            if(file_exists(self::getControllerPath($urlData[0])) && class_exists(self::getControllerName($urlData[0]))){
-                $controller = self::getControllerName($urlData[0]);
+            if(strtolower($urlData[0] === 'api')){
+                $isApi = true;
                 array_splice($urlData, 0, 1);
-            } else {
-                $controller = self::getControllerName('error');
             }
         }
         
-        if(!self::isValid($url)){
-            $controller = self::getControllerName('error');
-            $action     = self::getActionName('forbidden');
-            $urlData    = array();
+        if(!empty($urlData[0])){
+            if($isApi){
+                if(file_exists(self::getApiControllerPath($urlData[0])) && class_exists(self::getApiControllerName($urlData[0]))){
+                    $controller = self::getApiControllerName($urlData[0]);
+                    array_splice($urlData, 0, 1);
+                } else {
+                    $controller = self::getApiControllerName('error');
+                }
+            }else{
+                if(file_exists(self::getControllerPath($urlData[0])) && class_exists(self::getControllerName($urlData[0]))){
+                    $controller = self::getControllerName($urlData[0]);
+                    array_splice($urlData, 0, 1);
+                } else {
+                    $controller = self::getControllerName('error');
+                }    
+            }
         }
-
+        
+        // if(!self::isValid($url)){
+        //     if($isApi){
+        //         $controller = self::getApiControllerName('error');
+        //         $action     = 'forbidden';
+        //         $urlData    = array();
+                
+        //     } else{
+        //         $controller = self::getControllerName('error');
+        //         $action     = self::getActionName('forbidden');
+        //         $urlData    = array();
+        //     }
+        // }
+        
         $iController = new $controller;
-
-        if(!empty($urlData[0])){
-            if(method_exists($iController, self::getActionName($urlData[0]))) {
-                $action = self::getActionName($urlData[0]);
-                array_splice($urlData, 0, 1);
+        
+        if(!$isApi){
+            if(!empty($urlData[0])){
+                if(method_exists($iController, self::getActionName($urlData[0]))) {
+                    $action = self::getActionName($urlData[0]);
+                    array_splice($urlData, 0, 1);
+                }
             }
         }
         
-        call_user_func_array(array($iController, $action), $urlData);
-        call_user_func_array(array($iController, 'renderView'), array($controller, $action));
+        if($isApi){
+            $dataRequest = WebService::getDataRequest();
+            call_user_func_array(array($iController, $dataRequest['method']),Array($dataRequest['data']) );
+        }else{
+            call_user_func_array(array($iController, $action), $urlData);
+            call_user_func_array(array($iController, 'renderView'), array($controller, $action));
+        }
 
     }
 }

@@ -134,9 +134,6 @@ abstract class Model {
         $query = "UPDATE `{$this->table}` SET {$listFieldsValues} WHERE ";
         $c = count($this->primary);
         for($i = 0; $i < $c; $i++){
-            if(!array_key_exists($this->primary[$i],$primaryList)){
-                continue;
-            }
             if($i > 0){
                 $query .= ' AND ';
             }

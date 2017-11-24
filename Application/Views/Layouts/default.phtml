@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>Go rate games!</title>
+        <title>Do a list!</title>
         <link href="<?php echo DATA_WEB ?>css/tether.min.css" rel="stylesheet">
         <link href="<?php echo DATA_WEB ?>css/bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo DATA_WEB ?>css/global.css" rel="stylesheet">
@@ -14,26 +14,23 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="<?= LINK_WEB ?>">Gamenote <?php if ($helpers->isAuthenticated()) : ?>
+                <a class="navbar-brand" href="<?= LINK_WEB ?>">Todolist <?php if ($helpers->isAuthenticated()) : ?>
                     <span class="nav-message xs">Bienvenue <?= $_SESSION['user']->pseudo ?>!</span>
                     <?php endif; ?></a>
 
                 <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item <?= $_SERVER['REQUEST_URI'] === '/Gamenote/' ? 'active' : '' ?>">
+                        <li class="nav-item <?= $_SERVER['REQUEST_URI'] === '/Todolist/' ? 'active' : '' ?>">
                             <a class="nav-link" href="<?= LINK_WEB ?>">Home</a>
                         </li>
                         <?php if (!$helpers->isAuthenticated()) : ?>
-                            <li class="nav-item <?= $_SERVER['REQUEST_URI'] === '/Gamenote/user/register' ? 'active' : '' ?>">
+                            <li class="nav-item <?= $_SERVER['REQUEST_URI'] === '/Todolist/user/register' ? 'active' : '' ?>">
                                 <a class="nav-link" href="<?= LINK_WEB ?>user/register">Register</a>
                             </li>
                         <?php endif; ?>
                         <?php if ($helpers->isAuthenticated()) : ?>
-                            <li class="nav-item <?= $_SERVER['REQUEST_URI'] === '/Gamenote/game/create' ? 'active' : '' ?>">
-                                <a class="nav-link" href="<?= LINK_WEB ?>game/create">New game</a>
-                            </li>
-                            <li class="nav-item <?= $_SERVER['REQUEST_URI'] === '/Gamenote/game/index/' . $_SESSION['user']->id ? 'active' : '' ?>">
-                                <a class="nav-link" href="<?= LINK_WEB ?>game/index/<?= $_SESSION['user']->id ?>">My critics</a>
+                            <li class="nav-item <?= $_SERVER['REQUEST_URI'] === '/Todolist/task/index' ? 'active' : '' ?>">
+                                <a class="nav-link" href="<?= LINK_WEB ?>task/index">Tasks</a>
                             </li>
                         <?php endif; ?>
                     </ul>

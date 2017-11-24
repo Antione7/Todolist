@@ -4,30 +4,4 @@
             <?= $e ?>
         </div>
     <?php endforeach; ?>
-    <ul class="nav nav-tabs mb-3">
-        <?php foreach ($platforms as $platform) : ?>
-            <li class="nav-item">
-                <a class="nav-link <?= $id_platforms === $platform->id ? 'active' : '' ?>" href="<?= LINK_WEB ?>index/index/<?= $platform->id ?>"><?= $platform->name ?></a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-    <div class="row">
-        <?php foreach ($games as $game) : ?>
-        <div class="col-12 col-sm-6 col-lg-3">
-            <div class="card card-outline-primary mb-3">
-                <img class="card-img-top" src="<?= DATA_WEB ?>img/game.svg" alt="Card image cap">
-                <div class="card-block">
-                    <h4 class="card-title"><?=$game->name ?></h4>
-                    <p class="card-text">Rate: 5/5</p>
-                </div>
-                <div class="card-block">
-                    <?php if($helpers->isAuthenticated()) : ?>
-                    <a href="<?=LINK_WEB ?>critic/create/<?=$game->id ?>" class="card-link">Rate now!</a>
-                    <?php endif; ?>
-                    <a href="<?=LINK_WEB ?>critic/index/<?=$game->id ?>" class="card-link">Show critics</a>
-                </div>
-            </div>
-        </div>
-        <?php endforeach; ?>
-    </div>
 </div>

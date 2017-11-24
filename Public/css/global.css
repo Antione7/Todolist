@@ -12,6 +12,14 @@ body{
     display: none;
 }
 
+.table td {
+    vertical-align: initial;
+}
+
+.table .form-control {
+    display: inline-block;
+}
+
 @media screen and (max-width: 540px){
     .nav-message.sm{
         display: none;
