@@ -39,6 +39,7 @@ class User extends Controller {
 
             if (empty($error)) {
                 $id = $this->mu->insert($this->mu->cleanData($_POST));
+                var_dump($id);
                 if (is_int($id)) {
                     if ($this->mu->attributeRole($id)) {
                         header("location: " . LINK_WEB);

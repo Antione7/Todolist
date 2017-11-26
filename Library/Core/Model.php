@@ -22,7 +22,7 @@ abstract class Model {
         $tmpData = $data;
 
         foreach ($data as $key => $value) {
-            if (in_array(key,$this->primary)) {
+            if (in_array($key,$this->primary)) {
                 continue;
             }
             if (!array_key_exists($key, $this->structure)) {
@@ -114,7 +114,7 @@ abstract class Model {
 
         $sql = $this->database->prepare("INSERT INTO `{$this->table}` ({$listFields}) VALUES ({$listValues})");
         $result = $sql->execute($data);
-        if ($result && $this->primary === 'id') {
+        if ($result && $this->primary[0] === 'id') {
             return $this->database->lastInsertId();
         } else if($result){
             return 1;
