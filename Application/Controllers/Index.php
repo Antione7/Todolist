@@ -24,6 +24,9 @@ class Index extends Controller {
                 if (password_verify($_POST['password'], $user->password)) {
                     unset($user->password);
                     $_SESSION['user'] = $user;
+                    header("location: " . LINK_WEB . "task/index");
+                    exit();
+
                 } else {
                     array_push($error, "email or password not valid");
                 }

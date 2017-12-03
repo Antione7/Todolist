@@ -125,19 +125,14 @@ class Router {
             }
         }
         
-        // if(!self::isValid($url)){
-        //     if($isApi){
-        //         $controller = self::getApiControllerName('error');
-        //         $action     = 'forbidden';
-        //         $urlData    = array();
-                
-        //     } else{
-        //         $controller = self::getControllerName('error');
-        //         $action     = self::getActionName('forbidden');
-        //         $urlData    = array();
-        //     }
-        // }
-        
+        if(!$isApi){
+            if(!self::isValid($url)){
+                $controller = self::getControllerName('error');
+                $action     = self::getActionName('forbidden');
+                $urlData    = array();
+            }
+        }
+               
         $iController = new $controller;
         
         if(!$isApi){

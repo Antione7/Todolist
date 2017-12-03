@@ -14,22 +14,40 @@ class Task {
     }
 
     public function get() {
-        WebService::sendResponse($this->mt->fetchAll());
+        WebService::sendResponse($this->mt->fetchAll('id_users = '.$_SESSION['user']->id));
     }
 
     public function post($data) {
-        $this->mt->insert($data);
-        WebService::sendResponse($this->mt->fetchAll());
+        $data['id_users']=$_SESSION['user']->id;
+        $error = $this->mt->getErrorData($data);
+
+        if(!empty($data) && empty($error)){
+            $this->mt->insert($this->mt->cleanData($data));
+            WebService::sendResponse($this->mt->fetchAll('id_users = '.$_SESSION['user']->id));
+        } else {
+            WebService::sendResponse(["error" => "there is an error, you should try again later"]);
+        }
     }
 
     public function put($data) {
-        $this->mt->updateByPrimary($data);
-        WebService::sendResponse($this->mt->fetchAll());
+        $error = $this->mt->getErrorData($data);
+
+        if(!empty($data) && empty($error)){
+            $this->mt->updateByPrimary($this->mt->cleanData($data));
+            WebService::sendResponse($this->mt->fetchAll('id_users = '.$_SESSION['user']->id));
+        } else {
+            WebService::sendResponse(["error" => "there is an error, you should try again later"]);
+        }
     }
 
     public function delete($data) {
-        $this->mt->deleteByPrimary($data);
-        WebService::sendResponse($this->mt->fetchAll());
-    }
+        $error = $this->mt->getErrorData($data);
 
+        if(!empty($data) && empty($error)){
+            $this->mt->deleteByPrimary($data);
+            WebService::sendResponse($this->mt->fetchAll('id_users = '.$_SESSION['user']->id));
+        } else {
+            WebService::sendResponse(["error" => "there is an error, you should try again later"]);
+        }
+    }
 }

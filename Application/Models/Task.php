@@ -12,6 +12,9 @@ class Task extends Model {
     protected $structure = array(
         "libelle" => array(
             "type" => "string",
+        ),
+        "id_users" => array(
+            "type" => "int"
         )
     );
 
